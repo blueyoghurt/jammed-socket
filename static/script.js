@@ -1,8 +1,6 @@
 // Initialize variables
 var $window = $(window);
 var $usernameInput = $('.usernameInput'); // Input for username
-var $messages = $('.messages'); // Messages area
-var $inputMessage = $('.inputMessage'); // Input message input box
 
 var $loginPage = $('.login.page'); // The login page
 var $instrumentPage = $('.instrument.page'); // Select instrument page
@@ -12,17 +10,18 @@ var $drumPage = $('.drum.page');
 var $keyboardPage = $('.keyboard.page');
 var $trianglePage = $('.triangle.page');
 var $vocalPage = $('.vocal.page');
+var gamepause = false;
 
 // Prompt for setting a username
 var username;
 var instrument;
 var note;
-var connected = false;
-var typing = false;
-var lastTypingTime;
 var $currentInput = $usernameInput.focus();
 
 var socket = io();
+
+// Hide alert
+$('#alertDiv').hide();
 
 // Keyboard events
 
@@ -34,9 +33,6 @@ $window.keydown(function (event) {
   // When the client hits ENTER on their keyboard
   if (event.which === 13) {
     if (username) {
-      sendMessage();
-      socket.emit('stop typing');
-      typing = false;
     } else {
       setUsername();
     }
@@ -57,16 +53,11 @@ function setUsername () {
     $loginPage.fadeOut();
     $instrumentPage.show();
     $loginPage.off('click');
-    $currentInput = $inputMessage.focus();
 
     // Tell the server your username
     socket.emit('add user', username);
   }
 }
-
-$inputMessage.on('input', function() {
-  updateTyping();
-});
 
 // Click events
 
@@ -75,20 +66,13 @@ $loginPage.click(function () {
   $currentInput.focus();
 });
 
-// Focus input when clicking on the message input's border
-$inputMessage.click(function () {
-  $inputMessage.focus();
-});
-
 // Event Listener for selecting instruments
 $('.musicInstrument').click(function(){
   instrument = $(this).attr('value');
 
   $instrumentPage.fadeOut();
   showInstrument(instrument);
-  // $chatPage.show();
   $('.musicInstrument').off('click');
-  $currentInput = $inputMessage.focus();
 
   socket.emit('user joins',{username: username, instrument: instrument});
 });
@@ -105,8 +89,20 @@ $('.Playback').click(function(){
   socket.emit('playback');
 });
 
-// Socket Listening
+//Event Listener for game pause
+$(document).keypress(function(e){
+  if (e.which === 32){
+    if(gamepause){
+      $('#overlay').css("z-index","-1");
+      gamepause = false;
+    } else{
+      $('#overlay').css("z-index","1");
+      gamepause = true;
+    }
+  }
+});
 
+// Socket Listening
 socket.on('playbacksong',function(data){
   console.log("play the song!");
   playbacksong(data)
@@ -116,13 +112,13 @@ socket.on('play note', function(data){
   console.log(data.instrument, data.note);
 });
 
+socket.on('user left', function(data){
+  userLeft(data);
+});
+
 socket.on('welcome message', function(data){
   welcome(data);
 });
-
-function welcome (data){
-  console.log("Welcome",data.user + "! Our lead on",data.instrument);
-}
 
 function playbacksong(data){
   counter = 0;
@@ -156,4 +152,26 @@ function showInstrument(instrument){
     $vocalPage.show();
     break;
   }
+}
+
+function welcome (data){
+  $("#alertDiv").removeClass("alert-danger");
+  $("#alertDiv").addClass("alert-info");
+  var message = data.user + " has joined us on the " + data.instrument.toLowerCase() +". Rock on!";
+  $('#alertText').text(message);
+  $("#alertDiv").alert();
+  $("#alertDiv").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alertDiv").slideUp(500);
+  });
+}
+
+function userLeft (connection){
+  $("#alertDiv").removeClass("alert-info");
+  $("#alertDiv").addClass("alert-danger");
+  var message = connection.user + " has left us for a better place. Goodbye!";
+  $('#alertText').text(message);
+  $("#alertDiv").alert();
+  $("#alertDiv").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alertDiv").slideUp(500);
+  });
 }

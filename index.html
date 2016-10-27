@@ -6,6 +6,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 </head>
 <body>
+
+  <div id="alertDiv" class="alert" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p id="alertText"></p>
+  </div>
+
+  <div id="overlay">
+    <p id="pauseMsg">Game paused. Press spacebar to continue.</p>
+  </div>
+
   <ul class="pages">
 
     <li class="login page">
@@ -17,7 +29,7 @@
 
     <li class="instrument page">
       <div class="instrumentarea">
-        <h3 class="title">Pick your weapon</h3>
+        <h3 class="title">Choose your weapon of choice?</h3>
         <div class="col-md-4 instrumentContainer">
           <img src="/Guitar.png" class="musicInstrument" value="Guitar"/>
           <p>Guitar</p>
@@ -42,6 +54,7 @@
 
       <li class="guitar page">
         <div class="noteArea">
+          <h3 class="title">The Guitar</h3>
           <div class="col-md-3 noteContainer">
             <img src="/Guitar.png" class="musicalNote" value="Do"/>
             <p>Do</p>
@@ -77,6 +90,7 @@
         </div>
       </li>
       <li class="drum page">
+        <h3 class="title">The Drum</h3>
         <div class="noteArea">
           <div class="col-md-3 noteContainer">
             <img src="/Guitar.png" class="musicalNote" value="Do"/>
@@ -85,6 +99,7 @@
         </div>
       </li>
       <li class="keyboard page">
+        <h3 class="title">Keyboard</h3>
         <div class="noteArea">
           <div class="col-md-3 noteContainer">
             <img src="/Guitar.png" class="musicalNote" value="Do"/>
@@ -121,6 +136,7 @@
         </div>
       </li>
       <li class="triangle page">
+        <h3 class="title">The Triangle</h3>
         <div class="noteArea">
           <div class="col-md-3 noteContainer">
             <img src="/Guitar.png" class="musicalNote" value="Do"/>
@@ -129,6 +145,7 @@
         </div>
       </li>
       <li class="vocal page">
+        <h3 class="title">Use your vocals</h3>
         <div class="noteArea">
           <div class="col-md-3 noteContainer">
             <img src="/Guitar.png" class="musicalNote" value="Do"/>
@@ -144,6 +161,7 @@
       </li>
     </ul>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>

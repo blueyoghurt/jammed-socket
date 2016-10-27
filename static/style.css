@@ -22,11 +22,26 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  position: relative;
+  background-color: #F5F5F5;
 }
 
 ul {
   list-style: none;
   word-wrap: break-word;
+}
+
+#overlay {
+  height: 100%;;
+  width: 100%;
+  z-index: -1;
+  background-color: #D3D3D3;
+  position: absolute;
+}
+#pauseMsg {
+  text-align: center;
+  font-size: 250%;
+  padding: 30% 0 40% 0;
 }
 
 /* Pages */
@@ -84,8 +99,10 @@ ul {
   display: none;
 }
 
-.instrument.page .title {
+.instrument.page .title, .guitar.page .title, .drum.page .title, .keyboard.page .title, .triangle.page .title, .vocal.page .title {
+  text-align: center;
   font-size: 200%;
+  padding: 5% 0 5% 0;
 }
 
 .musicInstrument, .musicalNote {
