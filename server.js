@@ -22,7 +22,7 @@ io.on('connection', function(socket){
   // listen for a disconnect event
   socket.once('disconnect', () => {
     // find the connection and remove  from the collection
-    let connection = findConnection(socket.id)
+    var connection = findConnection(socket.id)
     if (connection) {
       socket.broadcast.emit('user left', connection);
       connections.splice(connections.indexOf(connection), 1)

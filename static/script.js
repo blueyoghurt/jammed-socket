@@ -69,11 +69,9 @@ $loginPage.click(function () {
 // Event Listener for selecting instruments
 $('.musicInstrument').click(function(){
   instrument = $(this).attr('value');
-
   $instrumentPage.fadeOut();
   showInstrument(instrument);
   $('.musicInstrument').off('click');
-
   socket.emit('user joins',{username: username, instrument: instrument});
 });
 
@@ -86,7 +84,6 @@ $('.musicalNote').click(function(){
 
 // Event Listener for playback
 $('.Playback').click(function(){
-  console.log("button clicked, playback song");
   socket.emit('playback');
 });
 
@@ -110,7 +107,7 @@ socket.on('playbacksong',function(data){
 });
 
 socket.on('play note', function(data){
-  console.log(data.instrument, data.note);
+  playsound(data.instrument, data.note);
 });
 
 socket.on('user left', function(data){
@@ -132,7 +129,6 @@ function playbacksong(data){
 function playsong(song, counter){
   setTimeout(function() {
     playsound(song.instrument, song.note);
-    // console.log(song.instrument, song.note);
   }, counter);
 }
 
@@ -180,7 +176,6 @@ function playsound(instrument, note){
   $('#instrumentsound').get(0).src = result;
   $('#instrumentsound').get(0).play();
 }
-
 
 function welcome (data){
   $("#alertDiv").removeClass("alert-danger");
