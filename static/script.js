@@ -81,6 +81,7 @@ $('.musicInstrument').click(function(){
 $('.musicalNote').click(function(){
   note = $(this).attr('value');
   socket.emit('playing instrument',{instrument: instrument, note: note});
+  playsound(instrument,note);
 });
 
 // Event Listener for playback
@@ -130,7 +131,8 @@ function playbacksong(data){
 
 function playsong(song, counter){
   setTimeout(function() {
-    console.log(song.instrument, song.note);
+    playsound(song.instrument, song.note);
+    // console.log(song.instrument, song.note);
   }, counter);
 }
 
@@ -153,6 +155,32 @@ function showInstrument(instrument){
     break;
   }
 }
+
+function playsound(instrument, note){
+  var prefix;
+  var result;
+  switch (instrument){
+    case "Guitar":
+    prefix = "guitar";
+    break;
+    case "Drums":
+    prefix = "bass";
+    break;
+    case "Keyboard":
+    prefix = "organ";
+    break;
+    case "Triangle":
+    prefix = "star";
+    break;
+    case "Vocal":
+    prefix = "string";
+    break;
+  }
+  result = "/effects/" + prefix + "-" + note.toLowerCase() + ".mp3";
+  $('#instrumentsound').get(0).src = result;
+  $('#instrumentsound').get(0).play();
+}
+
 
 function welcome (data){
   $("#alertDiv").removeClass("alert-danger");

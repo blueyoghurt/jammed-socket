@@ -102,19 +102,35 @@ ul {
 .instrument.page .title, .guitar.page .title, .drum.page .title, .keyboard.page .title, .triangle.page .title, .vocal.page .title {
   text-align: center;
   font-size: 200%;
-  padding: 5% 0 5% 0;
+  padding: 5% 0 2% 0;
 }
 
-.musicInstrument, .musicalNote {
+.musicInstrument {
   height: 200px;
 }
 
+.musicalNote {
+  height: 80px;
+  color: red;
+}
+
+.musicalNote:hover {
+  color: grey;
+}
 .instrumentContainer, .noteContainer {
   text-align: center;
-  padding: 20px 0 20px 0;
+  padding: 10px 0 10px 0;
   font-size: 30;
 }
 
 .guitar.page, .drum.page, .keyboard.page, .triangle.page, .vocal.page {
   display: none;
+}
+
+.Playback {
+  color: red;
+}
+
+.Playback:hover {
+  color: black;
 }
